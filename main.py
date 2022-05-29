@@ -8,7 +8,7 @@ lightBlue = "#98D3E3"
 def main():
 #Se crea ventana
    ventana = tkinter.Tk()
-   ventana.title("Monkey")
+   ventana.title("SeaBattle")
    ventana.geometry("800x600")
    ventana.config(bg="white")
    ventana.resizable(False, False) #Tamaño
