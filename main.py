@@ -1,6 +1,8 @@
 import tkinter
 from tkinter import *
+from tkinter import ttk
 from tkinter import messagebox
+import time
 
 bubbleGum = "#FFBED2"
 lightBlue = "#98D3E3"
@@ -8,17 +10,38 @@ lightBlue = "#98D3E3"
 def main():
 #Se crea ventana
    ventana = tkinter.Tk()
-   ventana.title("Monkey")
+   ventana.title("SeaBattle")
    ventana.geometry("800x600")
    ventana.config(bg="white")
-   ventana.resizable(False, False) #Tamaño
+   #ventana.resizable(False, False) #Tamaño
+
+   def paso():
+      while barraProgreso["value"] != 100:
+         for x in range(5):
+            barraProgreso["value"] += 20
+            splashCanva.update_idletasks()
+            time.sleep(1)
+      registro()
+
 
    # Se crea Canva
    splashCanva = Canvas(ventana, width=800, height=600, borderwidth=0, highlightthickness=0, bg=lightBlue)
    splashCanva.place(x=0, y=0)
 
-   fondoRegistro = PhotoImage(file="Computador.png")
-   splashCanva.create_image(0, 0, image=fondoRegistro, anchor="nw")
+   fondoSplash = PhotoImage(file="Splash.png")
+   splashCanva.create_image(0, 0, image=fondoSplash, anchor="nw")
+
+
+   barraProgreso = ttk.Progressbar(splashCanva, orient=HORIZONTAL, length = 780, mode = "determinate")
+   barraProgreso.place(x=10, y=575)
+
+   botonBarra = Button(splashCanva, text="Entrar al Juego",font=("Cooper black", 15), command=paso)  # Salon de la fama
+   botonBarra.place(x=320 , y=299)
+
+
+   #fondoRegistro = PhotoImage(file="Computador.png")
+   #splashCanva.create_image(0, 0, image=fondoRegistro, anchor="nw")
+
 
 
 
@@ -27,12 +50,20 @@ def main():
       my_canvas = Canvas(ventana, width=800, height=600, borderwidth=0, highlightthickness=0, bg=lightBlue)
       my_canvas.place(x=0, y=0)
 
-      fondoRegistro = PhotoImage(file="Registro.png")
-      my_canvas.create_image(0, 0, image=fondoRegistro, anchor="nw")
+      pideNombre = tkinter.Label(my_canvas, text="Registro ", font=("Cooper black", 40),bg=lightBlue, fg="black")
+      pideNombre.place(x=250, y=60)
 
-      nombres = Entry(my_canvas,width=50,borderwidth=3)
-      nombres.place(x=195,y=290)
-      #Juego
+      pideNombre = tkinter.Label(my_canvas, text="Nombre del jugador: ", font=("Cooper black", 20), bg=lightBlue,fg="black")
+      pideNombre.place(x=195, y=240)
+
+      nombres = Entry(my_canvas, width=50, borderwidth=3)
+      nombres.place(x=195, y=290)
+
+      salonFamaB = Button(my_canvas, text="Salon de la fama", command=salonFama)  # Salon de la fama
+      salonFamaB.place(x=5, y=5)
+
+      ayudaB = Button(my_canvas, text="Ayuda", command=ayuda)  # Ayuda
+      ayudaB.place(x=110, y=5)
 
 
       def registroJug():
@@ -45,37 +76,51 @@ def main():
             archivo.close()
             salonFama()
 
-
       imprimirJugador = Button(my_canvas, text="Registrar y Jugar", command=registroJug) # Regsitrar y Jugar
       imprimirJugador.place(x=195, y=335)
-
-
 
 
 
    def salonFama():
 
       # Canva Registro
-      canvaJuego = tkinter.Canvas(ventana, width=800, height=600, borderwidth=0, highlightthickness=0, bg=bubbleGum)
-      canvaJuego.place(x=0, y=0)
+      canvaSF = tkinter.Canvas(ventana, width=800, height=600, borderwidth=0, highlightthickness=0, bg=bubbleGum)
+      canvaSF.place(x=0, y=0)
 
-      regresoB = Button(canvaJuego, text="Regresar al registro", command=registro)  # Salon de la fama
-      regresoB.place(x=5, y=5)
+      pideNombre = tkinter.Label(canvaSF, text="Salon de la fama ", font=("Cooper black", 40), bg=lightBlue, fg="black")
+      pideNombre.place(x=250, y=60)
+
+      salonFamaSFB = Button(canvaSF, text="Salon de la fama", command=salonFama)  # Salon de la fama
+      salonFamaSFB.place(x=5, y=5)
+
+      ayudaSFB = Button(canvaSF, text="Ayuda", command=ayuda)  # Ayuda
+      ayudaSFB.place(x=110, y=5)
+
+      registroSFB = Button(canvaSF, text="Registro", command=registro)  # Ayuda
+      registroSFB.place(x=160, y=5)
 
 
    def ayuda():
       canvaAyuda = tkinter.Canvas(ventana, width=800, height=600, borderwidth=0, highlightthickness=0, bg="lightYellow")
       canvaAyuda.place(x=0, y=0)
 
+      pideNombre = tkinter.Label(canvaAyuda, text="Ayuda ", font=("Cooper black", 40), bg=lightBlue, fg="black")
+      pideNombre.place(x=250, y=60)
 
-   salonFamaB = Button(my_canvas, text="Salon de la fama", command=salonFama)  # Salon de la fama
-   salonFamaB.place(x=5, y=5)
-   ayudaB = Button(my_canvas, text="Ayuda", command=ayuda)  # Ayuda
-   ayudaB.place(x=110, y=5)
+      salonFamaAB = Button(canvaAyuda, text="Salon de la fama", command=salonFama)  # Salon de la fama
+      salonFamaAB.place(x=5, y=5)
 
-   ventana.after(5000,registro)
+      ayudaAB = Button(canvaAyuda, text="Ayuda", command=ayuda)  # Ayuda
+      ayudaAB.place(x=110, y=5)
+
+      registroAB = Button(canvaAyuda, text="Registro", command=registro)  # Ayuda
+      registroAB.place(x=160, y=5)
+
+
+
+
+   #ventana.after(10000,registro)
 
    ventana.mainloop() # loop para main
-
 
 main()# Llamado de main
