@@ -19,6 +19,7 @@ def main():
 
    fondoRegistro = PhotoImage(file="Computador.png")
    splashCanva.create_image(0, 0, image=fondoRegistro, anchor="nw")
+print("Hola")
 
 
 
@@ -76,6 +77,7 @@ def main():
    ventana.after(5000,registro)
 
    ventana.mainloop() # loop para main
+
 
 
 main()# Llamado de main
