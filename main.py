@@ -21,7 +21,7 @@ def main():
    splashCanva.create_image(0, 0, image=fondoRegistro, anchor="nw")
 print("Hola")
 
-
+print("Mae")
 
 
    def registro():
