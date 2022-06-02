@@ -7,13 +7,50 @@ import time
 bubbleGum = "#FFBED2"
 lightBlue = "#98D3E3"
 
+
+
+class balas():
+   def __init__(self):
+      posX = self.posX
+      posY = self.posY
+
+class barco():
+   def __init__(self):
+      tamano = self.tamano
+
+
+class Juego():
+   def __init__(self, l_cuadrado):
+      self.l_cuadrado = l_cuadrado
+
+      self.ventana = tkinter.Tk()
+      self.ventana.title("Juego")
+      self.ventana.wm_geometry(f"{str(l_cuadrado * 10)}x{str(l_cuadrado * 10)}")
+      self.ventana.resizable(0,0)
+
+      self.interfaz = tkinter.Canvas(self.ventana)
+      self.interfaz.pack(fill="both", expand=True)
+
+   def __call__(self):
+      self.ventana.mainloop()
+
+   def dibujoTablero(self):
+      #self.interfaz.create_rectangle(x0,y0,x1,y1,fill=null)
+      for i in range(10):
+         for j in range(10):
+            if (i+j) % 2 == 0:
+               self.interfaz.create_rectangle(i * self.l_cuadrado,j * self.l_cuadrado,(i + 1) * self.l_cuadrado,(j + 1) * self.l_cuadrado,fill="white")
+            else:
+               self.interfaz.create_rectangle(i * self.l_cuadrado, j * self.l_cuadrado, (i + 1) * self.l_cuadrado,(j + 1) * self.l_cuadrado, fill="white")
+
+
 def main():
 #Se crea ventana
    ventana = tkinter.Tk()
    ventana.title("SeaBattle")
    ventana.geometry("800x600")
    ventana.config(bg="white")
-   #ventana.resizable(False, False) #Tamaño
+   ventana.resizable(False, False) #Tamaño
 
    def paso():
       while barraProgreso["value"] != 100:
@@ -39,12 +76,6 @@ def main():
    botonBarra.place(x=320 , y=299)
 
 
-   #fondoRegistro = PhotoImage(file="Computador.png")
-   #splashCanva.create_image(0, 0, image=fondoRegistro, anchor="nw")
-
-
-
-
 
    def registro():
       my_canvas = Canvas(ventana, width=800, height=600, borderwidth=0, highlightthickness=0, bg=lightBlue)
@@ -67,6 +98,7 @@ def main():
 
 
       def registroJug():
+
          if nombres.get() == "":
             messagebox.showwarning("Nombre", "Error en el nombre")
          else:
@@ -74,7 +106,7 @@ def main():
             archivo = open("Jugadores1.txt", "a")
             archivo.write(nombres.get() + "-")
             archivo.close()
-            salonFama()
+            Leerjuego()
 
       imprimirJugador = Button(my_canvas, text="Registrar y Jugar", command=registroJug) # Regsitrar y Jugar
       imprimirJugador.place(x=195, y=335)
@@ -116,10 +148,12 @@ def main():
       registroAB = Button(canvaAyuda, text="Registro", command=registro)  # Ayuda
       registroAB.place(x=160, y=5)
 
+   def Leerjuego():
+      personaJuego = Juego(40)
+      personaJuego.dibujoTablero()
+      personaJuego()
 
 
-
-   #ventana.after(10000,registro)
 
    ventana.mainloop() # loop para main
 
