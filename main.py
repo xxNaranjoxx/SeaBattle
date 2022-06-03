@@ -15,8 +15,29 @@ class balas():
       posY = self.posY
 
 class barco():
-   def __init__(self):
-      tamano = self.tamano
+   def __init__(self,tamano,posx, posy):
+      self.tamano = tamano
+      self.posx = posx
+      self.posy = posy
+
+   def  get_tamano(self):
+      return self.tamano
+
+   def  get_posx(self):
+      return self.posx
+
+   def  get_posy(self):
+      return self.posy
+
+   def  set_posy(self):
+      return self.posy
+
+   def  set_posy(self):
+      return self.posy
+
+   def  set_posy(self, x):
+      self.posy = x
+
 
 
 class Juego():
@@ -28,20 +49,33 @@ class Juego():
       self.ventana.wm_geometry(f"{str(l_cuadrado * 10)}x{str(l_cuadrado * 10)}")
       self.ventana.resizable(0,0)
 
+      self.ventana1 = tkinter.Tk()
+      self.ventana1.title("Juego")
+      self.ventana1.wm_geometry(f"{str(l_cuadrado * 10)}x{str(l_cuadrado * 10)}")
+      self.ventana1.resizable(0, 0)
+
+      self.interfaz1 = tkinter.Canvas(self.ventana1)
+      self.interfaz1.pack(fill="both", expand=True)
+
       self.interfaz = tkinter.Canvas(self.ventana)
       self.interfaz.pack(fill="both", expand=True)
 
    def __call__(self):
       self.ventana.mainloop()
 
-   def dibujoTablero(self):
+   def dibujoTableroJ(self):
       #self.interfaz.create_rectangle(x0,y0,x1,y1,fill=null)
       for i in range(10):
          for j in range(10):
-            if (i+j) % 2 == 0:
-               self.interfaz.create_rectangle(i * self.l_cuadrado,j * self.l_cuadrado,(i + 1) * self.l_cuadrado,(j + 1) * self.l_cuadrado,fill="white")
-            else:
-               self.interfaz.create_rectangle(i * self.l_cuadrado, j * self.l_cuadrado, (i + 1) * self.l_cuadrado,(j + 1) * self.l_cuadrado, fill="white")
+            self.interfaz.create_rectangle(i * self.l_cuadrado,j * self.l_cuadrado,(i + 1) * self.l_cuadrado,(j + 1) * self.l_cuadrado,fill="white")
+
+   def dibujoTableroC(self):
+      #self.interfaz.create_rectangle(x0,y0,x1,y1,fill=null)
+      for i in range(10):
+         for j in range(10):
+            self.interfaz1.create_rectangle(i * self.l_cuadrado,j * self.l_cuadrado,(i + 1) * self.l_cuadrado,(j + 1) * self.l_cuadrado,fill="red")
+
+
 
 
 def main():
@@ -150,8 +184,11 @@ def main():
 
    def Leerjuego():
       personaJuego = Juego(40)
-      personaJuego.dibujoTablero()
+      personaJuego.dibujoTableroJ()
+      personaJuego.dibujoTableroC()
       personaJuego()
+
+
 
 
 
